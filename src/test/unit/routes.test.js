@@ -126,7 +126,7 @@ describe('#Routes - test api responses', () => {
 
       expect(mRes.status).toBeCalledWith(204);
       expect(mRes.json).toBeCalledWith({ ok: true });
-    });
+    }, 20000);
 
     test('PUT /Product/:id - should update a existent product ', async () => {
       const mReq = {};
