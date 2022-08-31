@@ -3,7 +3,7 @@ const {
   removeProduct,
   updateProduct,
   showProduct,
-} = require('../repositories/productRepository');
+} = require("../repositories/productRepository");
 
 const create = async (req, res) => {
   const { name, color, value } = req.body;
@@ -22,9 +22,8 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const {
-    id, name, color, value,
-  } = req.body;
+  const { id } = req.params;
+  const { name, color, value } = req.body;
 
   try {
     const product = await updateProduct({
@@ -41,7 +40,7 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     await removeProduct(id);
