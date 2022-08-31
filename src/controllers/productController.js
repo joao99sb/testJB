@@ -1,68 +1,64 @@
-const {
-  insertProduct,
-  removeProduct,
-  updateProduct,
-  showProduct,
-} = require("../repositories/productRepository");
+/* eslint-disable class-methods-use-this */
+import { ProductRepository } from '../repositories/productRepository';
 
-const create = async (req, res) => {
-  const { name, color, value } = req.body;
+// eslint-disable-next-line import/prefer-default-export
+export class ProductController {
+  async create(req, res) {
+    const { name, color, value } = req.body;
 
-  try {
-    const product = await insertProduct({
-      name,
-      color,
-      value,
-    });
+    try {
+      const repo = new ProductRepository();
+      const product = await repo.insertProduct({
+        name,
+        color,
+        value,
+      });
 
-    return res.status(201).json({ ok: true, product });
-  } catch (error) {
-    return res.status(500).json({ ok: false, error: error.message });
+      return res.status(201).json({ ok: true, product });
+    } catch (error) {
+      return res.status(500).json({ ok: false, error: error.message });
+    }
   }
-};
 
-const update = async (req, res) => {
-  const { id } = req.params;
-  const { name, color, value } = req.body;
+  async update(req, res) {
+    const { id } = req.params;
+    const { name, color, value } = req.body;
 
-  try {
-    const product = await updateProduct({
-      id,
-      name,
-      color,
-      value,
-    });
+    try {
+      const repo = new ProductRepository();
+      const product = await repo.updateProduct({
+        id,
+        name,
+        color,
+        value,
+      });
 
-    return res.status(201).json({ ok: true, product });
-  } catch (error) {
-    return res.status(500).json({ ok: false, error: error.message });
+      return res.status(201).json({ ok: true, product });
+    } catch (error) {
+      return res.status(500).json({ ok: false, error: error.message });
+    }
   }
-};
 
-const remove = async (req, res) => {
-  const { id } = req.params;
+  async remove(req, res) {
+    const { id } = req.params;
 
-  try {
-    await removeProduct(id);
-    return res.status(204).json({ ok: true });
-  } catch (error) {
-    return res.status(500).json({ ok: false, error: error.message });
+    try {
+      const repo = new ProductRepository();
+      await repo.removeProduct(id);
+      return res.status(204).json({ ok: true });
+    } catch (error) {
+      return res.status(500).json({ ok: false, error: error.message });
+    }
   }
-};
 
-const show = async (req, res) => {
-  try {
-    const product = await showProduct();
+  async show(req, res) {
+    try {
+      const repo = new ProductRepository();
+      const product = await repo.showProduct();
 
-    return res.status(201).json({ ok: true, product });
-  } catch (error) {
-    return res.status(500).json({ ok: false, error: error.message });
+      return res.status(200).json({ ok: true, product });
+    } catch (error) {
+      return res.status(500).json({ ok: false, error: error.message });
+    }
   }
-};
-
-module.exports = {
-  create,
-  update,
-  remove,
-  show,
-};
+}

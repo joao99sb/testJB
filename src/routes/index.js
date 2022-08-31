@@ -1,13 +1,15 @@
-const router = require('express').Router();
+import { Router } from 'express';
+import { ProductController } from '../controllers/productController';
 
-const {
-  create, update, show, remove,
-} = require('../controllers/productController');
+const router = Router();
+
+const productController = new ProductController();
 
 // Criar rotas para o CRUD de produto
-router.route('/Product').post(create);
-router.route('/Product').get(show);
-router.route('/Product/:id').put(update);
-router.route('/Product/:id').delete(remove);
+router.route('/Product').post(productController.create);
+router.route('/Product').get(productController.show);
+router.route('/Product/:id').put(productController.update);
+router.route('/Product/:id').delete(productController.remove);
 
-module.exports = router;
+// eslint-disable-next-line import/prefer-default-export
+export { router };

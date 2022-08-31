@@ -1,4 +1,4 @@
-const mongoose = require('../database');
+import { mongoose } from '../database';
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -15,4 +15,5 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = { Product };
+// eslint-disable-next-line import/prefer-default-export
+export { Product };
